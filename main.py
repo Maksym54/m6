@@ -1,13 +1,14 @@
 import logging
 from sqlite3 import DatabaseError
+from sqlite3 import connect
 from faker import Faker
 import random
 import psycopg2
 
 fake = Faker()
 
-
-conn = psycopg2.connect(host="localhost", database="m6", user="SQLite", password="123456")
+conn = connect('your_sqlite_database.db')
+conn = psycopg2.connect(host="localhost", database="m6", user="SQLite", password="123098")
 cur = conn.cursor()
 
 
@@ -42,6 +43,7 @@ try:
     conn.commit()
 except DatabaseError as e:
     logging.error(e)
+    print("Error:", e)
     conn.rollback()
 finally:
     cur.close()
